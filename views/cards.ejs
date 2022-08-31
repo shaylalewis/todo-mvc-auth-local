@@ -9,23 +9,29 @@
 </head>
 <body>
     <h1>Kanban Board</h1>
-    <ul>
-        <% cards.forEach( element => { %>
-            <li class='cardItem' data-id='<%=element._id%>'>
-        })
-    </ul>
+    <section class="cardDisplay">
+        <% cards.forEach(element => { %>
+            <section class='card' data-id='<%=element._id%>'>
+                <section class="card__header">
+                    <h3 class="card__title"><%=element.cardName%></h3>                    
+                </section>
+                <section class="card__subheader">
+                    <input class="card_todo__input" data-cardid='<%=element._id%>' data-username='<%= user.userName %>' />
+                </section>
+                <section class="card__body">
+                    <% cards.todos.forEach(el => { %>
+                        <li class='todoItem' data-id='<%=el._id%>'>
+                            <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
+                            <span class='del'> Delete </span>
+                        </li>
+                    <% }) %>   
+                </section>
+                
+            </section>
+        <% }) %>
     
-    
-    <h1>Todos</h1>
-    <ul>
-    <% todos.forEach( el => { %>
-            <li class='todoItem' data-id='<%=el._id%>'>
-                <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
-                <span class='del'> Delete </span>
-            </li>
-    <% }) %>    
-    </ul>
-
+    </section>
+            
     <h2><%= user.userName %> has <%= left %> things left to do.</h2>
 
     <form action="/todos/createTodo" method='POST'>
