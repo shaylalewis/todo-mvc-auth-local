@@ -44,14 +44,16 @@ const createCard = async (req, res) => {
 
 /**
  * Deltes the specified card (by ID)
- * Route:   /cards/deleteCard
+ * Route:   /cards/deleteCard/:cardID
  * Method:  DELETE
 */
 const deleteCard = async (req, res) => {
   try {
-    await Card.findOneAndDelete({ _id: req.body.cardId });
+    await Card
+      .findByIdAndDelete(req.params.cardID)
+
     console.log('Deleted Card');
-    res.json('Deleted Card');
+    res.redirect('/cards');
   }
   catch (err) {
     console.log(err);
