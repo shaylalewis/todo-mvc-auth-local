@@ -18,7 +18,7 @@
                 <section class="card__subheader">
                     <form action="/todos/createTodo" method='POST'>
                         <input type="text" style='display:none;' readonly name="cardSelect"/>
-                        <input class="card_todo__input" data-cardid='<%=card._id%>' data-username='<%= user.userName %>' />
+                        <input type="text" class="card_todo__input" name="todoItem"  placeholder="Enter Todo Item" data-cardid='<%=card._id%>' data-username='<%= user.userName %>' />
                         <input type="submit" value="Add Todo">
                     </form>
                 </section>
