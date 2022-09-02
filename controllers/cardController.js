@@ -81,7 +81,21 @@ const editCard = async (req, res) => {
  * Method:  PUT
 */
 const addTodoToCard = async (req, res) => {
+  try {
+    console.log('Adding task to card')
+    const card = await Card
+      .findById(req.params.cardID)
+    if (!card) res.status(404).json('No card found by that ID')
 
+    console.log(card)
+    card.todos.push(req.params.todoID)
+
+    card.save()
+    res.status(200).json(`${req.params.todoID} was added to req.params.cardID`)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json(err)
+  }
 }
 
 module.exports = {
