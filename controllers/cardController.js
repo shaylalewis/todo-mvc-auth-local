@@ -7,9 +7,18 @@ const Card = require('../models/Card')
  */
 const getCards = async (req, res) => {
   try {
-    const cards = await Card.find({ userId: req.user.id })
-    console.log('cards found')
-    res.render('cards.ejs', { cards: cards, user: req.user })
+    const cards = await Card
+      .find({
+        userId: req.user.id
+      })
+      .populate(['todos'])
+      .lean()
+    console.log(`${cards.length} cards found`)
+    console.log(cards[0].todos)
+    res.render('cards.ejs', {
+      cards,
+      user: req.user,
+    })
   } catch (err) {
     console.log(err)
   }
