@@ -10,35 +10,41 @@
 <body>
     <h1>Kanban Board</h1>
     <section class="cardDisplay">
-        <% cards.forEach(element => { %>
-            <section class='card' data-id='<%=element._id%>'>
+        <% cards.forEach(card => { %>
+            <section class='card' data-id='<%=card._id%>'>
                 <section class="card__header">
-                    <h3 class="card__title"><%=element.cardName%></h3>                    
+                    <h3 class="card__title"><%=card.cardName%></h3>                    
                 </section>
                 <section class="card__subheader">
-                    <input class="card_todo__input" data-cardid='<%=element._id%>' data-username='<%= user.userName %>' />
+                    <input class="card_todo__input" data-cardid='<%=card._id%>' data-username='<%= user.userName %>' />
                 </section>
                 <section class="card__body">
-                    <% cards.todos.forEach(el => { %>
-                        <li class='todoItem' data-id='<%=el._id%>'>
-                            <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
+                    <% card.todos.forEach(todo => { %>
+                        <li class='todoItem' data-id='<%=todo._id%>'>
+                            <span class='<%= todo.completed === true ? 'completed' : 'not'%>'><%= todo.todo %></span>
                             <span class='del'> Delete </span>
                         </li>
-                    <% }) %>   
+                    <% }) %>
                 </section>
-                
+                <h3><%= user.userName %> has <%= card.todos.length ? card.todos.filter(todo => todo.completed === false).length : 0 %> things left to do.</h3>
             </section>
         <% }) %>
-    
     </section>
-            
-    <h2><%= user.userName %> has <%= left %> things left to do.</h2>
+
 
     <form action="/todos/createTodo" method='POST'>
         <input type="text" placeholder="Enter Todo Item" name='todoItem'>
+        <select name="cardSelect" id="cardSelect">
+            <% cards.forEach(card => { %>
+                <option value="<%= card._id %>"><%= card.cardName %></option>
+            <% }) %>
+        </select>
         <input type="submit">
     </form>
-
+    <form action="/cards/createCard" method="post">
+        <input type="text" name="cardName" placeholder="New Card Name">
+        <input type="submit" value="New Card">
+    </form>
     <a href="/logout">Logout</a>
 
     <script src="js/main.js"></script>
