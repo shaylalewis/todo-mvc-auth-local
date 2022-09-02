@@ -7,9 +7,18 @@ const Card = require('../models/Card')
  */
 const getCards = async (req, res) => {
   try {
-    const cards = await Card.find({ userId: req.user.id })
-    console.log('cards found')
-    res.render('cards.ejs', { cards: cards, user: req.user })
+    const cards = await Card
+      .find({
+        userId: req.user.id
+      })
+      .populate(['todos'])
+      .lean()
+    console.log(`${cards.length} cards found`)
+    console.log(cards[0].todos)
+    res.render('cards.ejs', {
+      cards,
+      user: req.user,
+    })
   } catch (err) {
     console.log(err)
   }
@@ -81,7 +90,21 @@ const editCard = async (req, res) => {
  * Method:  PUT
 */
 const addTodoToCard = async (req, res) => {
+  try {
+    console.log('Adding task to card')
+    const card = await Card
+      .findById(req.params.cardID)
+    if (!card) res.status(404).json('No card found by that ID')
 
+    console.log(card)
+    card.todos.push(req.params.todoID)
+
+    card.save()
+    res.status(200).json(`${req.params.todoID} was added to req.params.cardID`)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json(err)
+  }
 }
 
 module.exports = {

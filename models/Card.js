@@ -10,11 +10,10 @@ const CardSchema = new mongoose.Schema({
     required: [true, 'no User ID provided']
   },
   todos: [{
-    todo: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Todo',
-    }
-  }]
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Todo',
+    required: true,
+  }],
 })
 
 module.exports = mongoose.model('Card', CardSchema)

@@ -1,4 +1,5 @@
 const Todo = require('../models/Todo')
+const Card = require('../models/Card')
 
 module.exports = {
     getTodos: async (req,res)=>{
@@ -14,9 +15,23 @@ module.exports = {
     },
     createTodo: async (req, res)=>{
         try{
-            await Todo.create({todo: req.body.todoItem, completed: false, userId: req.user.id})
+            const todo = await Todo
+                .create({
+                    todo: req.body.todoItem,
+                    completed: false,
+                    userId: req.user.id})
             console.log('Todo has been added!')
-            res.redirect('/todos')
+            console.log(todo)
+            const card = await Card
+                .findById(req.body.cardSelect)
+
+            if (!card) res.status(404).json('No card found by that ID')
+
+            console.log(card)
+            card.todos.push(todo._id)
+            
+            await card.save()
+            res.redirect('/cards')
         }catch(err){
             console.log(err)
         }

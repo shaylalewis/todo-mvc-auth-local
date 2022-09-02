@@ -1,7 +1,10 @@
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 
+
+// Creates the Data-Type for MongoDB Stoarage
 const UserSchema = new mongoose.Schema({
+  //Sets "Username" && "Email" as unique so there is no repeat between other users
   userName: { type: String, unique: true },
   email: { type: String, unique: true },
   password: String

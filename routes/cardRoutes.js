@@ -8,6 +8,8 @@ router.get('/', ensureAuth, cardController.getCards)
 
 router.post('/createCard', cardController.createCard)
 
+router.post('/:cardID/add/:todoID', cardController.addTodoToCard)
+
 router.route('/editCard')
     .get(cardController.editCardPage)
     .put(cardController.editCard)
