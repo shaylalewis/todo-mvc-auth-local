@@ -14,7 +14,6 @@ const getCards = async (req, res) => {
       .populate(['todos'])
       .lean()
     console.log(`${cards.length} cards found`)
-    console.log(cards[0].todos)
     res.render('cards.ejs', {
       cards,
       user: req.user,

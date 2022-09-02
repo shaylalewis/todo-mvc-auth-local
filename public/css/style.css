@@ -1,6 +1,59 @@
-h1{
-    color: red;
+:root {
+    --main-text-color: #5e6c84;
+    
+    --card-color: #ebecf0;
+    --card-todo-color: white;
+
+    --main-primary-color: 71, 95, 148;
+    --main-secondary-color: 89, 119, 186;
+
 }
+
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    
+}
+html, body {
+    height: 100%;
+    width: 100%;
+}
+body {
+    
+    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+}
+
+a {
+    text-decoration: none;
+    color: var(--main-text-color);
+}
+
+li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+nav{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding-left:20px;
+    padding-right:20px;
+    margin-bottom:50px;
+}
+nav > #nav__title{
+    font-size: 1.6rem;
+    font-family: orbitron;
+    color: white;
+    
+    /* I sortof like it */
+    -webkit-text-stroke: 1px black;
+    paint-order: stroke fill;
+}
+
 .completed{
     text-decoration: line-through;
     color: gray;
@@ -9,23 +62,100 @@ h1{
     text-decoration: underline;
 }
 
+
 /* cards */
 .cardDisplay{
     box-sizing: border-box;
-    display: inline-block;
-    height: 100%;
     margin: 0 4px;
     vertical-align: top;
     white-space: nowrap;
-    width: 272px;
+
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    
 }
 .card{
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-basis: 300px;
+    height: 300px;
+    justify-content: space-between;
 
     border-radius: 5px;
     padding: 5px 10px;
 
+    background: var(--card-color);
     box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+    
+}
+.card__top{
+    width:100%;
+
+}
+.card__header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    
+    max-height: 50px;
+    margin-bottom: 10px;    
+}
+.card__subheader{
+    width: 100%;
+}
+.card__subheader form{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+.card__title{
+    text-transform: uppercase;
+}
+
+.card__footer{
+    display: flex;
+    
+}
+
+#testing__area{
+    display:flex;
+    justify-content: center;
+
+}
+.btn{  
+  background-color: #FFFFFF;
+  border: 1px solid gray;
+  border-radius: .5rem;
+  box-sizing: border-box;
+  color: #111827;
+  font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  padding: .25rem .5rem;
+  text-align: center;
+  text-decoration: none #D1D5DB solid;
+  text-decoration-thickness: auto;  
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn:hover {
+  background-color: rgb(249,250,251);
+}
+
+.btn:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.btn:focus-visible {
+  box-shadow: none;
 }
