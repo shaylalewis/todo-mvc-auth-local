@@ -10,10 +10,10 @@ router.post('/createCard', cardController.createCard)
 
 router.post('/:cardID/add/:todoID', cardController.addTodoToCard)
 
-router.route('/editCard')
+router.route('/editCard/:cardID')
     .get(cardController.editCardPage)
     .put(cardController.editCard)
 
-router.delete('/deleteCard', cardController.deleteCard)
+router.get('/deleteCard/:cardID', cardController.deleteCard)
 
 module.exports = router
