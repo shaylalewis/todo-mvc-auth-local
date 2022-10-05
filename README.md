@@ -1,3 +1,10 @@
+# Group Project - Collaborators:
+Kevin Pham - https://github.com/kevinp8  
+Marc Hurst - https://github.com/MarcHurst  
+Michael Shaw - https://github.com/MichaelTheLearner  
+Natalie - https://github.com/nataliejhong  
+Crime - https://github.com/shaylalewis  
+
 # Introduction
 
 A kanban board made with the bones of the Leon todo app. The kanban bord has user login and utilizes MVC principals.
