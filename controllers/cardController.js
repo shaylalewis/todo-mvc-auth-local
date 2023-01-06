@@ -14,7 +14,7 @@ const getCards = async (req, res) => {
       .populate(['todos'])
       .lean()
     console.log(`${cards.length} cards found`)
-    console.log(cards[0].todos)
+    // console.log(cards[0].todos)
     res.render('cards.ejs', {
       cards,
       user: req.user,
@@ -51,6 +51,7 @@ const deleteCard = async (req, res) => {
   try {
     await Card
       .findByIdAndDelete(req.params.cardID)
+    // await Card.findOneAndDelete(req.params.card)
 
     console.log('Deleted Card');
     res.redirect('/cards');
