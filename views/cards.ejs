@@ -9,30 +9,47 @@
 </head>
 <body>
     <h1>Kanban Board</h1>
-    <ul>
-        <% cards.forEach( element => { %>
-            <li class='cardItem' data-id='<%=element._id%>'>
-        })
-    </ul>
-    
-    
-    <h1>Todos</h1>
-    <ul>
-    <% todos.forEach( el => { %>
-            <li class='todoItem' data-id='<%=el._id%>'>
-                <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
-                <span class='del'> Delete </span>
-            </li>
-    <% }) %>    
-    </ul>
+    <section class="cardDisplay">
+        <% cards.forEach(card => { %>
+            <section class='card' data-id='<%=card._id%>'>
+                <section class="card__header">
+                    <h3 class="card__title"><%=card.cardName%></h3>                    
+                </section>
+                <section class="card__subheader">
+                    <form action="/todos/createTodo" method='POST'>
+                        <input type="text" style='display:none;' readonly name="cardSelect"/>
+                        <input type="text" class="card_todo__input" name="todoItem"  placeholder="Enter Todo Item" data-cardid='<%=card._id%>' data-username='<%= user.userName %>' />
+                        <input type="submit" value="Add Todo">
+                    </form>
+                </section>
+                <section class="card__body">
+                    <% card.todos && card.todos.forEach(todo => { %>
+                        <li class='todoItem' data-id='<%=todo._id%>'>
+                            <span class='<%= todo.completed === true ? 'completed' : 'not'%>'><%= todo.todo %></span>
+                            <button class='del'> Delete </button>
+                        </li>
+                    <% })%>
+                </section>
+                <h3><%= user.userName %> has <%= card.todos ? card.todos.filter(todo => todo.completed === false).length : 0 %> things left to do.</h3>
+                <a href="/cards/deleteCard/<%=card._id%>">Delete this card</a>
+            </section>
+        <% }) %>
+    </section>
 
-    <h2><%= user.userName %> has <%= left %> things left to do.</h2>
 
     <form action="/todos/createTodo" method='POST'>
         <input type="text" placeholder="Enter Todo Item" name='todoItem'>
+        <select name="cardSelect" id="cardSelect">
+            <% cards.forEach(card => { %>
+                <option value="<%= card._id %>"><%= card.cardName %></option>
+            <% }) %>
+        </select>
         <input type="submit">
     </form>
-
+    <form action="/cards/createCard" method="post">
+        <input type="text" name="cardName" placeholder="New Card Name">
+        <input type="submit" value="New Card">
+    </form>
     <a href="/logout">Logout</a>
 
     <script src="js/main.js"></script>

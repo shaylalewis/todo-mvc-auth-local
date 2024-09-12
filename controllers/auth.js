@@ -4,7 +4,8 @@ const User = require('../models/User')
 
  exports.getLogin = (req, res) => {
     if (req.user) {
-      return res.redirect('/todos')
+      // return res.redirect('/todos')
+      return res.redirect('/cards')
     }
     res.render('login', {
       title: 'Login'
@@ -74,7 +75,7 @@ const User = require('../models/User')
       email: req.body.email,
       password: req.body.password
     })
-  
+
     User.findOne({$or: [
       {email: req.body.email},
       {userName: req.body.userName}
